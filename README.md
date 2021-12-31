@@ -14,5 +14,13 @@ Almost every Kubernetes object includes two nested object fields that govern the
 For objects that have a spec, you have to set this when you create the object, providing a description of the characteristics you want the resource to have: its desired state.  
 
 The status describes the current state of the object, supplied and updated by the Kubernetes system and its components. The Kubernetes control plane continually and actively manages every object's actual state to match the desired state you supplied.
-###
+###Describing a Kubernetes object
+When you create an object in Kubernetes, you must provide the object spec that describes its desired state, as well as some basic information about the object (such as a name).   
+When you use the Kubernetes API to create the object (either directly or via kubectl).  
+
+Here's an example .yaml file that shows the required fields and object spec for a Kubernetes Deployment:
+
+![image](https://user-images.githubusercontent.com/41946619/147801496-2ae31bad-ab17-46ca-ae91-49ee66cca5c3.png)
+
+
 ###
