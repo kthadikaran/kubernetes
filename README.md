@@ -39,3 +39,5 @@ The kubectl command-line tool supports several different ways to create and mana
 2. Imperative object configuration-Individual  fles  
 3. Declarative object configuration- Directories of files  
 
+### Namespaces  
+In Kubernetes, namespaces provides a mechanism for isolating groups of resources within a single cluster.  
