@@ -53,3 +53,13 @@ In Kubernetes, namespaces provides a mechanism for isolating groups of resources
 Labels are key/value pairs that are attached to objects, such as pods. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system. Labels can be used to organize and to select subsets of objects.  
 Labels can be attached to objects at creation time and subsequently added and modified at any time.  
 Each object can have a set of key/value labels defined. Each Key must be unique for a given object.  
+
+### Sevices:  
+A Service enables network access to a set of Pods in Kubernetes.  
+Services select Pods based on their labels, when a network request is made to the service, it selects all Pods in the cluster matching the service's selector, chooses one of them, and forwards the network request to it.  
+
+The type property in the Service's spec determines how the service is exposed to the network. It changes where a Service is able to be accessed from.The possible types are are below:  
+
+**ClusterIP:** The default value exposes a service which is only accessible from within the Kubernetes cluster you can not make requests to your Pods from outside the cluster.  
+**NodePort:** This makes the service accessible on a static port on each Node in the cluster. This means that the service can handle requests that originate from outside the cluster.  
+**LoadBalancer:** The service becomes accessible externally through a cloud provider's load balancer functionality.  
