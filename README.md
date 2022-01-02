@@ -6,6 +6,29 @@ Kubernetes objects are persistent entities in the Kubernetes system. Kubernetes 
 1.What containerized applications are running (and on which nodes)  
 2.The resources available to those applications  
 3.The policies around how those applications behave, such as restart policies, upgrades, and fault-tolerance  
+
+### Pod  
+A pod is a group of one or more containers. A container is an enclosed, self-contained execution process, much like a process in an operating system. Kubernetes uses pods to run your code and images in the cluster.  
+
+Kubernetes works with Pods, rather than containers, so that containers in the same pod can be guaranteed to run on the same machine. Containers in the same pod share their networking infrastructure, storage resources, and lifecycle.  
+
+### Deployment:  
+A deployment is an object in Kubernetes that lets you manage a set of identical pods.  
+Without a deployment, you’d need to create, update, and delete a bunch of pods manually.  
+With a deployment, you declare a single object in a YAML file. This object is responsible for creating the pods, making sure they stay up to date, and ensuring there are enough of them running.  
+You can also easily autoscale your applications using a Kubernetes deployment.  
+
+### Sevices:  
+A Service enables network access to a set of Pods in Kubernetes.  
+Services select Pods based on their labels, when a network request is made to the service, it selects all Pods in the cluster matching the service's selector, chooses one of them, and forwards the network request to it.  
+
+The type property in the Service's spec determines how the service is exposed to the network. It changes where a Service is able to be accessed from.The possible types are are below:  
+
+**ClusterIP:** The default value exposes a service which is only accessible from within the Kubernetes cluster you can not make requests to your Pods from outside the cluster.  
+**NodePort:** This makes the service accessible on a static port on each Node in the cluster. This means that the service can handle requests that originate from outside the cluster.  
+**LoadBalancer:** The service becomes accessible externally through a cloud provider's load balancer functionality.  
+
+
 ### Object spec and status
 Almost every Kubernetes object includes two nested object fields that govern the object's configuration:   
 1.object spec  
@@ -28,7 +51,7 @@ In the .yaml file for the Kubernetes object you want to create, you'll need to s
 
 **apiVersion** - Which version of the Kubernetes API you're using to create this object  
 **kind** - What kind of object you want to create  
-**metadata** - Data that helps uniquely identify the object, including a name string, UID, and optional namespace  
+**metadata** - Data that helps uniquely identify the object, including a name string, UID, and optional namespace.  
 **spec** - What state you desire for the object  
 
 ### Kubernetes Object Management  
@@ -54,12 +77,4 @@ Labels are key/value pairs that are attached to objects, such as pods. Labels ar
 Labels can be attached to objects at creation time and subsequently added and modified at any time.  
 Each object can have a set of key/value labels defined. Each Key must be unique for a given object.  
 
-### Sevices:  
-A Service enables network access to a set of Pods in Kubernetes.  
-Services select Pods based on their labels, when a network request is made to the service, it selects all Pods in the cluster matching the service's selector, chooses one of them, and forwards the network request to it.  
-
-The type property in the Service's spec determines how the service is exposed to the network. It changes where a Service is able to be accessed from.The possible types are are below:  
-
-**ClusterIP:** The default value exposes a service which is only accessible from within the Kubernetes cluster you can not make requests to your Pods from outside the cluster.  
-**NodePort:** This makes the service accessible on a static port on each Node in the cluster. This means that the service can handle requests that originate from outside the cluster.  
-**LoadBalancer:** The service becomes accessible externally through a cloud provider's load balancer functionality.  
+]
