@@ -27,7 +27,8 @@ The type property in the Service's spec determines how the service is exposed to
 **ClusterIP:** The default value exposes a service which is only accessible from within the Kubernetes cluster you can not make requests to your Pods from outside the cluster.  
 **NodePort:** This makes the service accessible on a static port on each Node in the cluster. This means that the service can handle requests that originate from outside the cluster.  
 **LoadBalancer:** The service becomes accessible externally through a cloud provider's load balancer functionality.  
-
+Example Service Manifest YAML file.  
+![image](https://user-images.githubusercontent.com/41946619/147870400-0e958c9a-a389-4f64-9df9-b0540defb3f2.png)
 
 ### Object spec and status
 Almost every Kubernetes object includes two nested object fields that govern the object's configuration:   
