@@ -11,6 +11,17 @@ Kubernetes objects are persistent entities in the Kubernetes system. Kubernetes 
 A pod is a group of one or more containers. A container is an enclosed, self-contained execution process, much like a process in an operating system. Kubernetes uses pods to run your code and images in the cluster.  
 
 Kubernetes works with Pods, rather than containers, so that containers in the same pod can be guaranteed to run on the same machine. Containers in the same pod share their networking infrastructure, storage resources, and lifecycle.  
+Exaple YAML file.
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+```
 
 ### Deployment:  
 A deployment is an object in Kubernetes that lets you manage a set of identical pods.  
