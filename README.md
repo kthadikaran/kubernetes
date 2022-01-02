@@ -28,6 +28,27 @@ The type property in the Service's spec determines how the service is exposed to
 **NodePort:** This makes the service accessible on a static port on each Node in the cluster. This means that the service can handle requests that originate from outside the cluster.  
 **LoadBalancer:** The service becomes accessible externally through a cloud provider's load balancer functionality.  
 Example Service Manifest YAML file.  
+```apiVersion: v1
+kind: Service
+metadata:
+  name: selector-demo-service
+  namespace: livonlin
+  labels:
+    name: livonlin_service
+    app: nginx
+    project: livonlin
+    environment: test
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+  type: NodePort
+  ```
 ![image](https://user-images.githubusercontent.com/41946619/147870400-0e958c9a-a389-4f64-9df9-b0540defb3f2.png)
 
 ### Object spec and status
