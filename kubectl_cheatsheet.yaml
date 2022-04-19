@@ -1,0 +1,2 @@
+kubectl secrets commands:
+kubectl get secret prografana -n monitoring -o jsonpath="{.data.admin-user}" | base64 --decode
