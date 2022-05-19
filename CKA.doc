@@ -1,9 +1,3 @@
-10.83.147.96/27	Allow worker nodes to communicate with the AWS EFS
-10.83.147.192/27 Manual entry to allow EFS access from region private subnets
-10.83.147.64/27	Allow worker nodes to communicate with the AWS EFS
-10.83.147.224/27 Manual entry to allow EFS access from region private subnets
-
-
 Set-I
 ======================
 1. Create a node that has an SSD and label it as such.
