@@ -1,0 +1,104 @@
+10.83.147.96/27	Allow worker nodes to communicate with the AWS EFS
+10.83.147.192/27 Manual entry to allow EFS access from region private subnets
+10.83.147.64/27	Allow worker nodes to communicate with the AWS EFS
+10.83.147.224/27 Manual entry to allow EFS access from region private subnets
+
+
+Set-I
+======================
+1. Create a node that has an SSD and label it as such.
+	1.Create a pod that is only scheduled on SSD nodes.
+2. Create 2 pod definitions: the second pod should be scheduled to run anywhere the first pod is running - 2nd pod runs alongside the first pod.
+3. Create a deployment running nginx version 1.12.2 that will run in 2 pods
+	1.Scale this to 4 pods.
+	2.Scale it back to 2 pods.
+	3.Upgrade this to 1.13.8
+	4Check the status of the upgrade
+	5.How do you do this in a way that you can see the history of what happened?
+	6.Undo the upgrade
+	7.Expose the service on port 80
+4. Create a pod that uses a scratch disk.
+	1. Change the pod to mount a path on the host.
+5. Taint a node and run a Jenkins Pod on that specified node only.
+6. Create a pod that has a liveness check
+7. Use the utility nslookup to look up the DNS records of the service and pod.
+8. Find which Pod is taking max CPU
+9. List all PersistentVolumes sorted by their name
+10. Create a daemon set
+	1. Change the update strategy to do a rolling update but delaying 30 seconds between pod updates
+11. Create a static pod
+12. Create a busybox container without a manifest. Then edit the manifest.
+13. Create a pod that uses secrets
+	1. Create a secret
+	2. Pull secrets from environment variables
+	3. Pull secrets from a volume
+	4. Dump the secrets out via kubectl to show it worked
+14. Create a job that runs every 3 minutes and prints out the current time.
+15. Create a job that runs 20 times, 5 containers at a time, and prints “Hello parallel world”
+16. Create a horizontal autoscaling group that starts with 2 pods and scales when CPU usage is over 50%.
+17. Create a custom resource definition - CRD
+	1.Display it in the API with curl
+18. Create a networking policy such that only pods with the label access=granted can talk to it.
+	1. Create a nginx pod and attach this policy to it.
+	2. Create a busybox pod and attempt to talk to nginx - should be blocked
+	3. Attach the label to busybox and try again - should be allowed
+19. Create a service that references an externalname - https://api.github.com/users/prabhatsharma
+	1. Test that this works from another pod
+20. Create a pod that runs all processes as user 1000.
+21. Create a namespace
+	1. Run a pod in the new namespace
+	2. Put memory limits on the namespace
+	3. Limit pods to 2 persistent volumes in this namespace
+22. Write an ingress rule that redirects calls to /foo to one service and to /bar to another
+23. Write a service that exposes nginx on a nodeport
+	1. Change it to use a cluster port
+	2. Scale the service
+	3. Change it to use an external IP
+	4. Change it to use a load balancer
+24. Deploy nginx with 3 replicas and then expose a port
+25. Use port forwarding to talk to a specific port
+
+Set-II
+======================
+
+1. Display all the pods sorted by start time
+2. Create a pod that uses secrets
+	1. Create a secret
+	2. Pull secrets from environment variables
+	3. Pull secrets from a volume
+	4. Dump the secrets out via kubectl to show it worked
+3. Create a job that runs every 3 minutes and prints out the current time.
+4. Create a job that runs 20 times, 5 containers at a time, and prints “Hello parallel world”
+5. Create a horizontal autoscaling group that starts with 2 pods and scales when CPU usage is over 50%.
+6. Create a custom resource definition - CRD
+	1. Display it in the API with curl
+7. Create a networking policy such that only pods with the label access=granted can talk to it.
+	1.Create a nginx pod and attach this policy to it.
+	2.Create a busybox pod and attempt to talk to nginx - should be blocked
+	3.Attach the label to busybox and try again - should be allowed
+8. Create a service that references an externalname.
+	1. Test that this works from another pod
+9. Create a pod that runs all processes as user 1000.
+10. Create a namespace
+	1.Run a pod in the new namespace
+	2.Put memory limits on the namespace
+	3.Limit pods to 2 persistent volumes in this namespace
+11. Write an ingress rule that redirects calls to /foo to one service and to /bar to another
+12. Write a service that exposes nginx on a nodeport
+	1.Change it to use a cluster port
+	2.Scale the service
+	3.Change it to use an external IP
+	4.Change it to use a load balancer
+13. Deploy nginx with 3 replicas and then expose a port
+	1. Use port forwarding to talk to a specific port
+14. Make an API call using CURL and proper certs
+15. Join a new node to cluster
+16. Rotate certificates
+17. Taint a node and un-taint it
+18. Restart kubelet
+19. Configure the cluster to use 8.8.8.8 and 8.8.4.4 as upstream DNS servers.
+20. Create a pod with nginx and place a file using an init container that creates a simple index.html file with content - “created by init container”
+21. You have a Container with a volume mount. Add an init container that creates an empty file in the volume. (the only trick is to mount the volume to 1. init-container as well)
+22. Backup an etcd cluster
+23. List the members of an etcd cluster
+24. Find the health of etcd
