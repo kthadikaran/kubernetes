@@ -1,0 +1,81 @@
+How to Install Kubernetes Cluster (k8s) on Ubuntu 20.04
+
+Step1:  Set hostname and add entries in "/etc/hosts" file
+
+$ sudo hostnamectl set-hostname "k8s-master"     // Run this command on master node
+$ sudo hostnamectl set-hostname "k8s-node-0"     // Run this command on node-0
+
+Add the following entries in /etc/hosts files on each node,
+
+192.168.1.40    k8s-master
+192.168.1.41    k8s-node-0
+
+Step 2: Install Docker (Container Runtime) on all 3 nodes
+
+Login to each node and run the following commands to install docker,
+
+$ sudo apt update
+$ sudo apt install -y docker.io
+
+Create the file ‘/etc/docker/daemon.json’ to fix cgroup error, add the following content to it.
+sudo vi /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+  "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+
+$ sudo systemctl enable docker.service --now
+
+Run the following command to verify the status of docker service and its version,
+
+$ systemctl status docker
+$ docker --version
+
+Step 3: Disable swap and enable IP forwarding on all nodes
+
+To disable swap, edit /etc/fstab file and comment out the line which includes entry either swap partition or swap file.
+$ sudo vi /etc/fstab
+
+Run swapoff command to disable the swap on the fly
+$ sudo swapoff -a
+
+To enable the ip forwarding permanently, edit the file “/etc/sysctl.conf” and look for line “net.ipv4.ip_forward=1” and un-comment it. After making the changes in the file, execute the following command
+
+$ sudo sysctl -p
+net.ipv4.ip_forward = 1
+
+Step 4: Install Kubectl, kubelet and kubeadm on all nodes
+
+Run the following commands on all 3 nodes to install kubectl , kubelet and kubeadm utility
+
+$ sudo apt install -y apt-transport-https curl
+$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+$ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+$ sudo apt update
+$ sudo apt install -y kubelet kubeadm kube
+
+Step 4: Initialize Kubernetes Cluster using kubeadm
+
+Login to your master node (k8s-master) and run below ‘kubeadm init‘ command to initialize Kubernetes cluster,
+
+$ sudo kubeadm init
+
+To start using the cluster as a regular user, let’s execute the following commands, commands are already there in output just copy paste them.
+
+$  mkdir -p $HOME/.kube
+$  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Login to Node-0 and run following command,
+$ sudo kubeadm join 192.168.1.40:6443 --token b4sfnc.53ifyuncy017cnqq --discovery-token-ca-cert-hash sha256:5078c5b151bf776c7d2395cdae08080faa6f82973b989d29caaa4d58c28d0e4e
+
+
+Step 5) Deploy Calico Pod Network Add-on
+
+$ kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml(Please try the below one if this is not working)
+
+$ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
